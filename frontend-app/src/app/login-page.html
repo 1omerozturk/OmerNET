@@ -1,0 +1,154 @@
+<main class="auth-shell">
+  <section class="story-panel" aria-label="OmerNET tanıtımı">
+    <a class="brand" href="/" aria-label="OmerNET ana sayfa">
+      <span class="brand-mark">O</span><span>omer<span class="brand-light">net</span></span>
+    </a>
+    <div class="story-copy">
+      <span class="eyebrow"><span class="eyebrow-dot"></span> OMERNET’E HOŞ GELDİN</span>
+      <h1>Bağlantı kur.<br /><em>İleriye</em> birlikte git.</h1>
+      <p>Hesabına giriş yap, sana özel deneyimine kaldığın yerden devam et.</p>
+    </div>
+    <div class="story-bottom">
+      <span class="orbit orbit-one"></span><span class="orbit orbit-two"></span
+      ><span class="orbit orbit-three"></span>
+      <div class="story-note">
+        <span class="note-icon">✳</span
+        ><span>Yeni başlangıçlar<br /><strong>tek bir adımla başlar.</strong></span>
+      </div>
+    </div>
+    <span class="panel-footer">© 2026 OmerNET</span>
+  </section>
+
+  <section class="form-panel">
+    <div class="mobile-brand">
+      <span class="brand-mark">O</span><span>omer<span class="brand-light">net</span></span>
+    </div>
+    <div class="auth-card">
+      <div class="welcome-line"><span class="welcome-icon">✦</span> KENDİ ALANIN</div>
+      <h2>{{ isRegister ? 'Hesabını oluştur' : 'Tekrar hoş geldin' }}</h2>
+      <p class="subtitle">
+        {{
+          isRegister
+            ? 'Birkaç bilgiyle hemen başlayabilirsin.'
+            : 'Devam etmek için bilgilerini gir.'
+        }}
+      </p>
+
+      <div class="tabs" role="tablist" aria-label="Hesap işlemi">
+        <button
+          type="button"
+          role="tab"
+          [attr.aria-selected]="!isRegister"
+          [class.active]="!isRegister"
+          (click)="setMode(false)"
+        >
+          Giriş yap
+        </button>
+        <button
+          type="button"
+          role="tab"
+          [attr.aria-selected]="isRegister"
+          [class.active]="isRegister"
+          (click)="setMode(true)"
+        >
+          Kayıt ol
+        </button>
+      </div>
+
+      <form (ngSubmit)="submit()" #authForm="ngForm">
+        @if (isRegister) {
+          <label for="username">Kullanıcı adı</label>
+          <div class="input-wrap">
+            <span class="field-icon">♙</span
+            ><input
+              id="username"
+              name="username"
+              [(ngModel)]="username"
+              required
+              minlength="3"
+              autocomplete="username"
+              placeholder="Kullanıcı adın"
+            />
+          </div>
+        }
+
+        <label for="email">E-posta adresi</label>
+        <div class="input-wrap">
+          <span class="field-icon">✉</span
+          ><input
+            id="email"
+            name="email"
+            [(ngModel)]="email"
+            type="email"
+            required
+            autocomplete="email"
+            placeholder="ornek&#64;eposta.com"
+          />
+        </div>
+
+        <div class="label-row">
+          <label for="password">Şifre</label>
+          @if (!isRegister) {
+            <button
+              class="text-button"
+              type="button"
+              (click)="notice = 'Şifre yenileme için destek ekibiyle iletişime geçebilirsin.'"
+            >
+              Şifremi unuttum
+            </button>
+          }
+        </div>
+        <div class="input-wrap">
+          <span class="field-icon">♙</span
+          ><input
+            id="password"
+            name="password"
+            [(ngModel)]="password"
+            [type]="showPassword ? 'text' : 'password'"
+            required
+            [minlength]="isRegister ? 6 : 1"
+            [autocomplete]="isRegister ? 'new-password' : 'current-password'"
+            placeholder="{{ isRegister ? 'En az 6 karakter' : 'Şifren' }}"
+          /><button
+            class="visibility"
+            type="button"
+            (click)="showPassword = !showPassword"
+            [attr.aria-label]="showPassword ? 'Şifreyi gizle' : 'Şifreyi göster'"
+          >
+            {{ showPassword ? 'Gizle' : 'Göster' }}
+          </button>
+        </div>
+
+        @if (isRegister) {
+          <label class="consent"
+            ><input type="checkbox" name="consent" [(ngModel)]="consent" required /><span
+              >Koşulları ve gizlilik politikasını kabul ediyorum.</span
+            ></label
+          >
+        }
+        @if (notice) {
+          <p class="notice" role="status">{{ notice }}</p>
+        }
+        @if (error) {
+          <p class="error" role="alert">{{ error }}</p>
+        }
+        <button class="submit-button" type="submit" [disabled]="authForm.invalid || loading">
+          <span>{{ loading ? 'İşleniyor…' : isRegister ? 'Hesap oluştur' : 'Giriş yap' }}</span
+          ><span class="arrow">→</span>
+        </button>
+      </form>
+      <p class="switch-copy">
+        {{ isRegister ? 'Zaten hesabın var mı?' : 'Henüz hesabın yok mu?' }}
+        <button type="button" class="text-button switch-link" (click)="setMode(!isRegister)">
+          {{ isRegister ? 'Giriş yap' : 'Kayıt ol' }}
+        </button>
+      </p>
+      <div class="secure-note">
+        <span>♧</span> Bilgilerin güvenli ve şifreli bağlantıyla korunur.
+      </div>
+    </div>
+    <span class="form-footer"
+      >Yardıma mı ihtiyacın var? <a href="mailto:destek@omernet.com">Bize ulaş</a></span
+    >
+  </section>
+</main>

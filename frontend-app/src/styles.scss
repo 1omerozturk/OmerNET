@@ -1,1 +1,6 @@
-/* You can add global styles to this file, and also import other style files */
+* { box-sizing: border-box; }
+html, body { min-width: 320px; min-height: 100%; margin: 0; }
+body { font-family: Inter, "Segoe UI", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+button, input { font: inherit; }
+button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid #c78475; outline-offset: 3px; }
+::selection { color: #392d3e; background: #f0c9b7; }
